@@ -63,7 +63,7 @@ def get_chord(formation):
 
     for linha in formacoes:
         for i, notes in enumerate(linha):
-            if formation in notes:
+            if formation == notes:
                 if i == 0:
                     return "Nota: " + linha[0]
                 elif i == 1:
@@ -152,7 +152,7 @@ def update_plot(frame):
         data_dct = np.roll(data_dct, -shift)
         data_dct[-shift:] = new_data
         f = abs(sp.fft.dct(data_dct))
-        lista = maiores_indices(f,10)
+        lista = maiores_indices(f,16)
         lista = freqs_to_notes(lista)
         formation, n_notes = get_formation(lista)
         chord = get_chord(formation)
@@ -160,7 +160,7 @@ def update_plot(frame):
         if chord is not None:
             print(chord)
         elif n_notes == 3:
-            print("Não foi possível identificar um acorde com essa formação")
+            print("No Chord")
         elif n_notes == 4:
             formacoes_possiveis = gerar_combinacoes(set(lista), 3)
 
